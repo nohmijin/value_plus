@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "profileImg"
-    t.integer  "matching"
+    t.integer  "profileImg"
+    t.boolean  "matching"
     t.text     "introduce"
-    t.integer  "admin"
+    t.boolean  "admin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
