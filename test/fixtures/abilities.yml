@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan: false
+  mc: false
+  video: false
+  design: false
+  sns: false
+
+two:
+  plan: false
+  mc: false
+  video: false
+  design: false
+  sns: false

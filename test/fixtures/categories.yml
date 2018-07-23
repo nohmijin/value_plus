@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  politic: false
+  society: false
+  education: false
+  labor: false
+  foodMedi: false
+  press: false
+  environment: false
+  right: false
+  female: false
+
+two:
+  politic: false
+  society: false
+  education: false
+  labor: false
+  foodMedi: false
+  press: false
+  environment: false
+  right: false
+  female: false

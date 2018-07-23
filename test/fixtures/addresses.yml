@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  roadAdress: MyString
+  sido: MyString
+  x: 1
+  'y': 1
+
+two:
+  roadAdress: MyString
+  sido: MyString
+  x: 1
+  'y': 1
