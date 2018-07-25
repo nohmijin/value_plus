@@ -6,12 +6,14 @@ class CreateAssemblies < ActiveRecord::Migration
       t.string :posterImg
       t.text :content
       t.text :purpose
-      t.date :calender
+      t.date :calendar
       t.string :reportImg
       t.integer :donateGoal
       t.date :donateDeadline
       t.integer :category
       t.integer :like
+      t.integer :address_id
+      t.integer :host_id
 
       t.timestamps null: false
     end

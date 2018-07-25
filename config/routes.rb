@@ -4,12 +4,18 @@ Rails.application.routes.draw do
   root 'valueplus#index'
   
   get 'valueplus/index'
+  
+  post 'valueplus/sort'
+  
+  post '/valueplus/category' 
+  
+  post '/valueplus/location'
+  
+  post 'valueplus/create'
 
   get 'valueplus/new'
   
   get 'valueplus/show'
-  
-  post 'valueplus/create'
   
   get 'valueplus/destroy'
 

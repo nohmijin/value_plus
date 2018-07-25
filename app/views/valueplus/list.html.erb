@@ -1,2 +1,30 @@
-<h1>Valueplus#list</h1>
-<p>Find me in app/views/valueplus/list.html.erb</p>
+<form action= '/valueplus/sort' method='post'>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="radio" name="sort" value="like">추천순<br>
+    <input type="radio" name="sort" value="recent">최신순<br>
+    <button type ='submit'>submit</button>
+</form>
+<form action= '/valueplus/category' method='post'>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="radio" name="category" value="politic">정치<br>
+    <input type="radio" name="category" value="society">사회일반<br>
+    <input type="radio" name="category" value="education">교육<br>
+    <input type="radio" name="category" value="labor">노동<br>
+    <button type ='submit'>submit</button>
+</form>
+<form action= '/valueplus/location' method='post'>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="radio" name="sido" value="seoul">서울<br>
+    <input type="radio" name="sido" value="incheon">인천<br>
+    <input type="radio" name="sido" value="gyeonggi">경기<br>
+    <button type ='submit'>submit</button>
+</form>
+<% @assembly.each do |a|%>
+    <% remain = a.calendar - Date.today %>
+    <p><%= a.title%>
+    <% if remain == 0 %>
+        (오늘)</p>
+    <% else %>
+        (<%= remain.to_i%>일 남음)</p>
+    <% end %>
+<% end %>

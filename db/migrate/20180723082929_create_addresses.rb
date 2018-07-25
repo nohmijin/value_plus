@@ -5,6 +5,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :sido
       t.integer :x
       t.integer :y
+      t.integer :assembly_id
 
       t.timestamps null: false
     end

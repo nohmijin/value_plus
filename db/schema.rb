@@ -28,8 +28,9 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.string   "sido"
     t.integer  "x"
     t.integer  "y"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "assembly_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "assemblies", force: :cascade do |t|
@@ -38,12 +39,14 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.string   "posterImg"
     t.text     "content"
     t.text     "purpose"
-    t.date     "calender"
+    t.date     "calendar"
     t.string   "reportImg"
     t.integer  "donateGoal"
     t.date     "donateDeadline"
     t.integer  "category"
     t.integer  "like"
+    t.integer  "address_id"
+    t.integer  "host_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
@@ -76,11 +79,12 @@ ActiveRecord::Schema.define(version: 20180723130515) do
 
   create_table "hosts", force: :cascade do |t|
     t.string   "name"
-    t.string   "profieImg"
+    t.string   "profileImg"
     t.string   "email"
     t.text     "intro"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "assembly_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "likes", force: :cascade do |t|
