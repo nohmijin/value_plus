@@ -51,41 +51,41 @@ class ValueplusController < ApplicationController
   end
 
   def list
-    assembly = Assembly.includes(:address).where(["assemblies.calendar >= ?", Date.today])
+    @assembly = Assembly.includes(:address).where(["assemblies.calendar >= ?", Date.today])
     case $category
       when "politic"
-        @assembly = assembly.where(:category => 0)
+        @assembly = @assembly.where(:category => 0)
       when "society"
-        @assembly = assembly.where(:category => 1)
+        @assembly = @assembly.where(:category => 1)
       when "education"
-        @assembly = assembly.where(:category => 2)
+        @assembly = @assembly.where(:category => 2)
       when "labor"
-        @assembly = assembly.where(:category => 3)
+        @assembly = @assembly.where(:category => 3)
       when "foodMedi"
-        @assembly = assembly.where(:category => 4)
+        @assembly = @assembly.where(:category => 4)
       when "press"
-        @assembly = assembly.where(:category => 5)
+        @assembly = @assembly.where(:category => 5)
       when "environment"
-        @assembly = assembly.where(:category => 6)
+        @assembly = @assembly.where(:category => 6)
       when "right"
-        @assembly = assembly.where(:category => 7)
+        @assembly = @assembly.where(:category => 7)
       when "female"
-        @assembly = assembly.where(:category => 8)
+        @assembly = @assembly.where(:category => 8)
       else
     end
     case $sido
       when "seoul"
-        @assembly = assembly.address.where(:sido => "서울")
+        @assembly = @assembly.address.where(:sido => "서울")
       when "gyeonggi"
-        @assembly = assembly.address.where(:sido => "경기")
+        @assembly = @assembly.address.where(:sido => "경기")
       when "incheon"
-        @assembly = assembly.address.where(:sido => "인천")
+        @assembly = @assembly.address.where(:sido => "인천")
       when "busan"
-        @assembly = assembly.address.where(:sido => "부산")
+        @assembly = @assembly.address.where(:sido => "부산")
       else
     end
     if $sort == "like"
-      @assembly = assembly.order(like: :desc)
+      @assembly = @assembly.order(like: :desc)
     end
   end
   #집회 추천순, 최신순 정렬

@@ -12,8 +12,6 @@ class CreateAssemblies < ActiveRecord::Migration
       t.date :donateDeadline
       t.integer :category
       t.integer :like
-      t.integer :address_id
-      t.integer :host_id
 
       t.timestamps null: false
     end

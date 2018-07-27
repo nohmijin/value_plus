@@ -10,6 +10,7 @@ class CreateCategories < ActiveRecord::Migration
       t.boolean :environment
       t.boolean :right
       t.boolean :female
+      t.integer :user_id
 
       t.timestamps null: false
     end
