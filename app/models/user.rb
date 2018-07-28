@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
   has_many :careers
   
   def self.searchAbility(*ability)
+    result = self.includes(:ability)
     if(ability.any?)
-      result = self.includes(:ability)
       ability.each do |a|
         if(a.any?)
           a.each do |b|
@@ -18,14 +18,13 @@ class User < ActiveRecord::Base
           end
         end
       end
-      return result
     end
-    return self.includes(:ability)
+    return result
   end
   
   def self.searchCategory(*category)
+    result = self.includes(:category)
     if(category.any?)
-      result = self.includes(:category)
       category.each do |c|
         if(c.any?)
           c.each do |d|
@@ -33,9 +32,8 @@ class User < ActiveRecord::Base
           end
         end 
       end
-      return result
     end
-    return self.includes(:category)
+    return result
   end
   
 end

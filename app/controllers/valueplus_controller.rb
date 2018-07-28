@@ -36,11 +36,12 @@ class ValueplusController < ApplicationController
     #User.rb 에 메소드 정의 
     #능력과 분야별로 유저를 필터링하는 메소드
   end
-  #사용자로부터 필터링을 위한 능력 및 분야를 받아 배열로 저장하는 메소드
+  #사용자로부터 필터링을 위한 능력 및 분야를 받아 배열에저장하는 메소드
   def matchFilter
     ability_name = [:plan, :mc, :design, :video, :sns]
     category_name = [:politic, :society ,:education ,:labor ,:foodMedi ,:press ,:environment, :right ,:female]
-    
+    $ability = Array.new
+    $category = Array.new
     ability_name.each do |a|
       if(params[a])
         $ability.push(params[a])
