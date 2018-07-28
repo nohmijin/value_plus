@@ -4,15 +4,15 @@
     <input type="radio" name="sort" value="recent">최신순<br>
     <button type ='submit'>submit</button>
 </form>
-<form action= '/valueplus/category' method='post'>
+<form action= '/valueplus/field' method='post'>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <input type="radio" name="category" value="politic">정치<br>
-    <input type="radio" name="category" value="society">사회일반<br>
-    <input type="radio" name="category" value="education">교육<br>
-    <input type="radio" name="category" value="labor">노동<br>
+    <input type="radio" name="field" value="politic">정치<br>
+    <input type="radio" name="field" value="society">사회일반<br>
+    <input type="radio" name="field" value="education">교육<br>
+    <input type="radio" name="field" value="labor">노동<br>
     <button type ='submit'>submit</button>
 </form>
-<form action= '/valueplus/location' method='post'>
+<form action= '/valueplus/sido' method='post'>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <input type="radio" name="sido" value="seoul">서울<br>
     <input type="radio" name="sido" value="incheon">인천<br>

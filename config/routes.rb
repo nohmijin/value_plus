@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   
   post 'valueplus/sort'
   
-  post '/valueplus/category' 
+  post '/valueplus/field' 
   
-  post '/valueplus/location'
+  post '/valueplus/sido'
   
   post 'valueplus/create'
 
@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   get 'valueplus/donate'
 
   get 'valueplus/match'
+  
+  post 'valueplus/matchFilter'
 
   get 'valueplus/check'
 

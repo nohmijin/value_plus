@@ -30,14 +30,31 @@ class ValueplusController < ApplicationController
   end
 
   def match
+    ability = $ability
+    category = $category
+    @userMatch = User.searchAbility(ability).searchCategory(category)
+    #User.rb 에 메소드 정의 
+    #능력과 분야별로 유저를 필터링하는 메소드
   end
-
-  def check
+  #사용자로부터 필터링을 위한 능력 및 분야를 받아 배열로 저장하는 메소드
+  def matchFilter
+    ability_name = [:plan, :mc, :design, :video, :sns]
+    category_name = [:politic, :society ,:education ,:labor ,:foodMedi ,:press ,:environment, :right ,:female]
+    
+    ability_name.each do |a|
+      if(params[a])
+        $ability.push(params[a])
+      end
+    end
+    
+    category_name.each do |c|
+      if(params[c])
+        $category.push(params[c])
+      end
+    end
+    redirect_to '/valueplus/match'
   end
-
-  def myCareer
-  end
-
+  
   def myDonate
   end
 
@@ -52,7 +69,7 @@ class ValueplusController < ApplicationController
 
   def list
     @assembly = Assembly.includes(:address).where(["assemblies.calendar >= ?", Date.today])
-    case $category
+    case $field
       when "politic"
         @assembly = @assembly.where(:category => 0)
       when "society"
@@ -75,13 +92,13 @@ class ValueplusController < ApplicationController
     end
     case $sido
       when "seoul"
-        @assembly = @assembly.address.where(:sido => "서울")
+        @assembly = @assembly.where(:addresses => {:sido => "서울"})
       when "gyeonggi"
-        @assembly = @assembly.address.where(:sido => "경기")
+        @assembly = @assembly.where(:addresses => {:sido => "경기"})
       when "incheon"
-        @assembly = @assembly.address.where(:sido => "인천")
+        @assembly = @assembly.where(:addresses => {:sido => "인천"})
       when "busan"
-        @assembly = @assembly.address.where(:sido => "부산")
+        @assembly = @assembly.where(:addresses => {:sido => "부산"})
       else
     end
     if $sort == "like"
@@ -94,16 +111,15 @@ class ValueplusController < ApplicationController
     redirect_to '/valueplus/list'
   end
   #집회 분야별 필터링
-  def category
-    $category = params[:category]
+  def field
+    $field = params[:field]
     redirect_to '/valueplus/list'
   end
   #집회 지역별 필터링
-  def location
+  def sido
     $sido = params[:sido]
     redirect_to '/valueplus/list'
   end
   def profileUpdate
   end 
-  
 end

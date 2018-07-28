@@ -1,2 +1,13 @@
-<h1>Valueplus#match</h1>
-<p>Find me in app/views/valueplus/match.html.erb</p>
+<form action= '/valueplus/matchFilter' method='post'>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <input type="checkbox" name="politic" value="politic">정치<br>
+    <input type="checkbox" name="society" value="society">사회<br>
+    <input type="checkbox" name="plan" value="plan">기획<br>
+    <input type="checkbox" name="mc" value="mc">진행<br>
+    <input type="checkbox" name="video" value="video">영상<br>
+    <button type ='submit'>submit</button>
+</form>
+
+<% @userMatch. each do |u| %>
+<%= u.email %>
+<% end %>
