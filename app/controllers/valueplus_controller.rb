@@ -10,9 +10,11 @@ class ValueplusController < ApplicationController
     @education = assembly.where(:category => 2).limit(4)
   end
   def show
+    assembly = Assembly.includes(:address).find(params[:assembly_id])
+    @fullAddress = Address.find_by_assembly_id(params[:assembly_id])
   end
   #집회 등록 action
-  def create
+  def create 
   end
   #집회 등록 view 
   def new
@@ -104,6 +106,32 @@ class ValueplusController < ApplicationController
         @assembly = @assembly.where(:addresses => {:sido => "인천"})
       when "busan"
         @assembly = @assembly.where(:addresses => {:sido => "부산"})
+      when "gangwon"
+        @assembly = @assembly.where(:addresses => {:sido => "강원"})
+      when "chungbuk"
+        @assembly = @assembly.where(:addresses => {:sido => "충북"})
+      when "sejong"
+        @assembly = @assembly.where(:addresses => {:sido => "세종"})
+      when "chungnam"
+        @assembly = @assembly.where(:addresses => {:sido => "충남"})
+      when "daejun"
+        @assembly = @assembly.where(:addresses => {:sido => "대전"})
+      when "gyeongbuk"
+        @assembly = @assembly.where(:addresses => {:sido => "경북"})
+      when "daegu"
+        @assembly = @assembly.where(:addresses => {:sido => "대구"})
+      when "ulsan"
+        @assembly = @assembly.where(:addresses => {:sido => "울산"})
+      when "gyeongnam"
+        @assembly = @assembly.where(:addresses => {:sido => "경남"})
+      when "junbuk"
+        @assembly = @assembly.where(:addresses => {:sido => "전북"})
+      when "junnam"
+        @assembly = @assembly.where(:addresses => {:sido => "전남"})
+      when "gwuangju"
+        @assembly = @assembly.where(:addresses => {:sido => "광주"})
+      when "jeju"
+        @assembly = @assembly.where(:addresses => {:sido => "제주"})
       else
     end
     if $sort == "like"

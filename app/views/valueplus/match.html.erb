@@ -1,10 +1,20 @@
 <form action= '/valueplus/matchFilter' method='post'>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-    <input type="checkbox" name="politic" value="politic">정치<br>
-    <input type="checkbox" name="society" value="society">사회<br>
+    (능력)<br>
     <input type="checkbox" name="plan" value="plan">기획<br>
     <input type="checkbox" name="mc" value="mc">진행<br>
+    <input type="checkbox" name="design" value="design">디자인<br>
     <input type="checkbox" name="video" value="video">영상<br>
+    <input type="checkbox" name="sns" value="sns">sns<br>
+    (분야)<br>
+    <input type="checkbox" name="politic" value="politic">정치<br>
+    <input type="checkbox" name="society" value="society">사회일반<br>
+    <input type="checkbox" name="" value="education">교육<br>
+    <input type="checkbox" name="" value="foodMedi">식품/의료<br>
+    <input type="checkbox" name="" value="press">언론<br>
+    <input type="checkbox" name="" value="environment">환경<br>
+    <input type="checkbox" name="" value="right">인권/복지<br>
+    <input type="checkbox" name="" value="female">여성<br>
     <button type ='submit'>submit</button>
 </form>
 

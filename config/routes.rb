@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   get 'valueplus/new'
   
-  get 'valueplus/show'
+  get 'valueplus/show/:assembly_id' => 'valueplus#show'
   
   get 'valueplus/destroy'
 

@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180723130515) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string   "roadAdress"
+    t.string   "roadAddress"
     t.string   "sido"
     t.integer  "x"
     t.integer  "y"
