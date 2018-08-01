@@ -13,6 +13,7 @@ class CreateAssemblies < ActiveRecord::Migration
       t.integer :category
       t.integer :like
       t.integer :address_id
+      t.integer :check
 
       t.timestamps null: false
     end

@@ -1,30 +1,59 @@
 <form action= '/valueplus/sort' method='post'>
+
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
     <input type="radio" name="sort" value="like">추천순<br>
+
     <input type="radio" name="sort" value="recent">최신순<br>
+
     <button type ='submit'>submit</button>
+
 </form>
+
 <form action= '/valueplus/field' method='post'>
+
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
     <input type="radio" name="field" value="politic">정치<br>
+
     <input type="radio" name="field" value="society">사회일반<br>
+
     <input type="radio" name="field" value="education">교육<br>
+
     <input type="radio" name="field" value="labor">노동<br>
+
     <button type ='submit'>submit</button>
+
 </form>
+
 <form action= '/valueplus/sido' method='post'>
+
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
     <input type="radio" name="sido" value="seoul">서울<br>
+
     <input type="radio" name="sido" value="incheon">인천<br>
+
     <input type="radio" name="sido" value="gyeonggi">경기<br>
+
     <button type ='submit'>submit</button>
+
 </form>
+
 <% @assembly.each do |a|%>
+
     <% remain = a.calendar - Date.today %>
+
     <p><%= a.title%>
+
     <% if remain == 0 %>
+
         (오늘)</p>
+
     <% else %>
+
         (<%= remain.to_i%>일 남음)</p>
+
     <% end %>
+
 <% end %>

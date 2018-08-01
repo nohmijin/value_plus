@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.integer  "category"
     t.integer  "like"
     t.integer  "address_id"
+    t.integer  "check"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
