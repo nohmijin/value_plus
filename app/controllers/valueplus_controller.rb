@@ -47,7 +47,6 @@ class ValueplusController < ApplicationController
         $ability.push(params[a])
       end
     end
-    
     category_name.each do |c|
       if(params[c])
         $category.push(params[c])
@@ -67,6 +66,11 @@ class ValueplusController < ApplicationController
 
   def profileEdit
   end
+  
+  def check
+      @assCheck = Assembly.where(:check => 2)
+      #접근 권한 설정하기
+  end 
 
   def list
     @assembly = Assembly.includes(:address).where(["assemblies.calendar >= ?", Date.today])
@@ -104,6 +108,8 @@ class ValueplusController < ApplicationController
     end
     if $sort == "like"
       @assembly = @assembly.order(like: :desc)
+    else
+      @assembly = @assembly.order(id: :desc)
     end
   end
   #집회 추천순, 최신순 정렬
