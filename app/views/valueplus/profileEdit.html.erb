@@ -1,2 +1,59 @@
-<h1>Valueplus#profileEdit</h1>
-<p>Find me in app/views/valueplus/profileEdit.html.erb</p>
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h3><%= @profile.email %></h3>
+        <form action= '/valueplus/profileUpdate' method='post'>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input type = "hidden" name="user_id" value= <%= @profile.id %>>
+            <p>매칭여부</p>
+            <p><input type = "radio" name = "matching" value = "true" 
+            <% if @profile.matching == true %>
+                checked="checked"
+            <% end %>
+            >yes
+            <input type = "radio" name = "matching" value = "false"
+            <% if @profile.matching == false %>
+                checked="checked"
+            <% end %>
+            >no</p>
+            <p>소개글</p>
+            <p><textarea name = "introduce"><%= @profile.introduce %></textarea></p>
+            <button type ='submit'>submit</button>
+            <p>분야</p>
+            politic <%=@category.politic%>
+            <p>능력</p>
+            sns <%= @ability.sns %>
+        </form>
+    </body>
+</html><!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h3><%= @profile.email %></h3>
+        <form action= '/valueplus/profileUpdate' method='post'>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input type = "hidden" name="user_id" value= <%= @profile.id %>>
+            <p>매칭여부</p>
+            <p><input type = "radio" name = "matching" value = "true" 
+            <% if @profile.matching == true %>
+                checked="checked"
+            <% end %>
+            >yes
+            <input type = "radio" name = "matching" value = "false"
+            <% if @profile.matching == false %>
+                checked="checked"
+            <% end %>
+            >no</p>
+            <p>소개글</p>
+            <p><textarea name = "introduce"><%= @profile.introduce %></textarea></p>
+            <button type ='submit'>submit</button>
+            <p>분야</p>
+            politic <%=@category.politic%>
+            <p>능력</p>
+            sns <%= @ability.sns %>
+        </form>
+    </body>
+</html>

@@ -57,16 +57,32 @@ class ValueplusController < ApplicationController
     redirect_to '/valueplus/match'
   end
   
-  def myDonate
-  end
-
-  def myScrap
-  end
-
-  def myAssembly
-  end
-
+  # def myDonate
+  # end
+  # def myScrap
+  # end
+  # def myAssembly
+  # end
+  
+  #profile 수정 뷰
   def profileEdit
+    @profile = User.find(params[:user_id])
+    @category = Category.find_by_user_id(params[:user_id])
+    @ability = Ability.find_by_user_id(params[:user_id])
+  end
+  #profile 수정 액션
+  def profileUpdate
+    profile = User.find(params[:user_id])
+    #@profile.profileImg =
+    profile.matching = params[:matching]
+    profile.introduce = params[:introduce]
+    profile.save
+    redirect_to '/valueplus/mypage/:user_id'
+  end
+  def mypage
+    @myAssembly = Assembly.where(:user_id => params[:user_id])
+    @myScrap = Scrap.where(:user_id => params[:user_id])
+    @myDonate = Donation.where(:user_id => params[:user_id])
   end
   
   def check
@@ -75,6 +91,7 @@ class ValueplusController < ApplicationController
   end 
 
   def list
+    # @assembly => 집회
     @assembly = Assembly.includes(:address).where(["assemblies.calendar >= ?", Date.today])
     case $field
       when "politic"
@@ -155,6 +172,35 @@ class ValueplusController < ApplicationController
     $sido = params[:sido]
     redirect_to '/valueplus/list'
   end
-  def profileUpdate
-  end 
+  def aftersigningUp_view
+  end
+  def afterSigningUp
+    category = Category.new
+    category.user_id = params[:user_id]
+    category.politic = params[:politic]
+    category.society = params[:society]
+    category.education = params[:education]
+    category.labor = params[:labor]
+    category.foodMedi = params[:foodMedi]
+    category.press = params[:press]
+    category.environment = params[:environment]
+    category.right = params[:right]
+    category.female = params[:female]
+    category.save
+    
+    ability = Ability.new
+    ability.user_id = params[:user_id]
+    ability.plan = params[:plan]
+    ability.mc = params[:mc]
+    ability.design = params[:design]
+    ability.video = params[:video]
+    ability.sns = params[:sns]
+    ability.save
+    
+    user = User.find(params[:user_id])
+    user.matching = params[:matching]
+    user.save
+    
+    redirect_to '/'
+  end
 end

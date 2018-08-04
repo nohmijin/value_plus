@@ -14,6 +14,7 @@ class CreateAssemblies < ActiveRecord::Migration
       t.integer :like
       t.integer :address_id
       t.integer :check
+      t.integer :user_id
 
       t.timestamps null: false
     end

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_one :ability
   has_one :category
   has_many :careers
+  has_many :assemblies
   
   def self.searchAbility(*ability)
     result = self.includes(:ability)

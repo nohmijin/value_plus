@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <form action= '/valueplus/afterSigningUp' method='post'>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input type = "hidden" name="user_id" value=<%=current_user.id%>>
+            <p>분야선택</p>
+            <input type = "checkbox" name= "politic" value= true>정치
+            <input type = "checkbox" name= "society" value= true>사회
+            <input type = "checkbox" name= "education" value= true>교육
+            <input type = "checkbox" name= "labor" value= true>노동
+            <input type = "checkbox" name= "foodMedi" value= true>식품/의료
+            <input type = "checkbox" name= "press" value= true>언론
+            <input type = "checkbox" name= "environment" value= true>환경
+            <input type = "checkbox" name= "right" value= true>인권
+            <input type = "checkbox" name= "female" value= true>여성
+            <p>능력 선택</p>
+            <input type ="checkbox" name= "plan" value= true>기획
+            <input type ="checkbox" name= "mc" value= true>진행
+            <input type ="checkbox" name= "design" value= true>디자인
+            <input type ="checkbox" name= "video" value= true>영상
+            <input type ="checkbox" name= "sns" value= true>sns
+            <p>매칭여부 선택</p>
+            <input type ="radio" name= "matching" value= true>yes
+            <input type ="radio" name= "matching" value= false>no
+            <button type ='submit'>submit</button>
+        </form>
+    </body>
+</html>

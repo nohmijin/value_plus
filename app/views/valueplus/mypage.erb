@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+    <body>
+        <div>myCareer</div>
+        <p style="display: none"><%= render "myCareer" %></p>
+        <div>myAssembly</div>
+        <p style="display: none"><%= render "myAssembly" %></p>
+        <div>myScrap</div>
+        <p style="display: none"><%= render "myScrap" %></p>
+        <div>myDonate</div>
+        <p style="display: none"><%= render "myDonate" %></p>
+        
+        <script>
+        $("div").click(function(){
+          $(this).next().show()
+        });
+        </script>
+    </body>
+</html> 

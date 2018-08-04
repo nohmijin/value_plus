@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
   root 'valueplus#index'
   
   get 'valueplus/index'
@@ -30,17 +30,25 @@ Rails.application.routes.draw do
 
   get 'valueplus/check'
 
-  get 'valueplus/myCareer'
+  get 'valueplus/myCareer/:user_id' => 'valueplus#myCareer'
 
-  get 'valueplus/myDonate'
+  get 'valueplus/myDonate/:user_id' => 'valueplus#myDonate'
 
-  get 'valueplus/myScrap'
+  get 'valueplus/myScrap/:user_id' => 'valueplus#myScrap'
 
-  get 'valueplus/myAssembly'
+  get 'valueplus/myAssembly/:user_id' => 'valueplus#myAssembly'
 
-  get 'valueplus/profileEdit'
+  get 'valueplus/profileEdit/:user_id' =>'valueplus#profileEdit'
+  
+  post 'valueplus/profileUpdate'
+  
+  get 'valueplus/mypage/:user_id' => 'valueplus#mypage'
 
   get 'valueplus/list'
+  
+  get '/valueplus/afterSigningUp_view'
+  
+  post '/valueplus/afterSigningUp'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
