@@ -38,19 +38,4 @@
             } 
         });    
     </script>
-    
-    <p>
-          <% if current_user.is_like? (@find_like) %>
-          <form action='/assembly/<%= @find_like.id%>/like' method='post'>
-          <button> 좋아요 취소 </button>  
-          </form>
-          
-          <% else %>
-          <form action='/assembly/<%= @find_like.id%>/like' method='post'>
-          <button> 좋아요</button>  
-          </form>
-          
-          <% end %>
-        </p>
 </html>
-    
