@@ -13,6 +13,7 @@ class ValueplusController < ApplicationController
   #집회 상세보기
   def show
     @find_like = Assembly.find(params[:assembly_id]) 
+    @assembly = Assembly.find(params[:assembly_id]) 
     #집회분야가 한글로 표시된 변수
     @assemblyCategory = caseCategory(@assembly.category)
     #집회 주소
