@@ -14,17 +14,17 @@
             (분야)<br>
             <input type="checkbox" name="politic" value="politic">정치<br>
             <input type="checkbox" name="society" value="society">사회일반<br>
-            <input type="checkbox" name="" value="education">교육<br>
-            <input type="checkbox" name="" value="foodMedi">식품/의료<br>
-            <input type="checkbox" name="" value="press">언론<br>
-            <input type="checkbox" name="" value="environment">환경<br>
-            <input type="checkbox" name="" value="right">인권/복지<br>
-            <input type="checkbox" name="" value="female">여성<br>
+            <input type="checkbox" name="education" value="education">교육<br>
+            <input type="checkbox" name="foodMedi" value="foodMedi">식품/의료<br>
+            <input type="checkbox" name="press" value="press">언론<br>
+            <input type="checkbox" name="environment" value="environment">환경<br>
+            <input type="checkbox" name="right" value="right">인권/복지<br>
+            <input type="checkbox" name="female" value="female">여성<br>
             <button type ='submit'>submit</button>
         </form>
         
         <% @userMatch. each do |u| %>
-        <%= u.email %>
+        <a href="/valueplus/mypage/<%= @userMatch.id%>"><%= u.email %></a>
         <% end %>
     </body>
 </html>

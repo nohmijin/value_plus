@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h5>경력/이력 수정하기</h5>
+        <form action= '/valueplus/myCareerUpdate' method='post'>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input type="hidden" name="career_id" value="<%= @myCareer.id %>">
+            <p><input type="text" name="content" value="<%= @myCareer.content %>"></p>
+            <button type ='submit'>submit</button>
+        </form>
+    </body>
+</html>

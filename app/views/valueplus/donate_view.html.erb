@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <h2>"<%= @assembly.title %>" 후원하기</h2>
+        <form action= '/valueplus/donate' method='post'>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <input type="hidden" name ="assembly_id" value=<%= @assembly.id%>>
+            금액 : <input type="number" name="donateUser">원<br>
+            <button type ='submit'>submit</button>
+        </form>        
+    </body>
+</html>

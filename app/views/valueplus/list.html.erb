@@ -50,6 +50,15 @@
             <% else %>
                 (<%= remain.to_i%>일 남음)</p>
             <% end %>
-        <% end %>
+            <p>썸네일 :<%=a.thumnail.url%></p>
+            <p>분야 : <%=a.category%></p>
+            <p>내용 : <%=a.content%></p>
+            <p>목적 : <%=a.purpose%></p>
+            <p>날짜 :<%=a.calendar%></p>
+            <p>후원 마감 : <%=a.donateDeadline%></p>
+            <p>후원 목표 :<%=a.donateGoal%></p>
+        <% end %> 
+        
+
     </body>
 </html>

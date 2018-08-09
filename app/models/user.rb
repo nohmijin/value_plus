@@ -4,10 +4,19 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :likes
+  has_many :liked_assemblies, :through=> :likes, source: :assembly
   has_one :ability
   has_one :category
   has_many :careers
   has_many :assemblies
+  has_many :donations
+  has_many :scraps
+  has_many :scraped_assemblies, through: :scraps, source: :assembly 
+  
+  def is_like?(assembly)
+    Like.find_by(user_id: self.id, assembly_id: assembly.id).present?
+  end
   
   def self.searchAbility(*ability)
     result = self.includes(:ability)

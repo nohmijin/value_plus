@@ -1,7 +1,8 @@
 class ValueplusController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :new, :destroy, :edit, :update, :donate, :profileEdit, :profileUpdate, :mypage, :check, :afterSigningUp, :aftersigningUp_view]
   def index
     #마감된 집회 제외 추천순으로 저장
-    assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).order(like: :desc)
+    assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1).order(like: :desc)
     #carousel에 들어갈 상위 4개 집회 추출
     @carousel = assembly.limit(4)
     #분야별 추천수 상위 4개 집회
@@ -9,28 +10,149 @@ class ValueplusController < ApplicationController
     @society = assembly.where(:category => 1).limit(4)
     @education = assembly.where(:category => 2).limit(4)
   end
+  #집회 상세보기
   def show
-    assembly = Assembly.includes(:address).find(params[:assembly_id])
-    @fullAddress = Address.find_by_assembly_id(params[:assembly_id])
+    @find_like = Assembly.find(params[:assembly_id]) 
+    #집회분야가 한글로 표시된 변수
+    @assemblyCategory = caseCategory(@assembly.category)
+    #집회 주소
+  end
+  #집회에서 분야가 숫자로 저장되기 때문에 이를 한글로 반환하는 메소드
+  def caseCategory(category)
+    case category
+      when 0
+        return "정치"
+      when 1
+        return "사회"
+      when 2
+        return "교육"
+      when 3 
+        return "노동"
+      when 4
+        return "식품/의료"
+      when 5
+        return "언론"
+      when 6
+        return "환경"
+      when 7
+        return "인권"
+      when 8
+        return "여성"
+      else
+    end
   end
   #집회 등록 action
   def create 
+    assembly = Assembly.new
+    assembly.user_id = params[:user_id]
+    assembly.title = params[:title]
+    assembly.content = params[:content]
+    assembly.thumnail = params[:thumnail]
+    assembly.calendar = params[:calendar]
+    assembly.purpose = params[:purpose]
+    assembly.donateDeadline = params[:donateDeadline]
+    assembly.donateGoal = params[:donateGoal]
+    assembly.category = params[:category]
+    assembly.check = params[:check]
+    assembly.roadAddress = params[:roadAddress]
+    assembly.specificAdd = params[:specificAdd]
+    assembly.sido = params[:sido]
+    assembly.save
+    
+    # poster = Poster.new
+    # poster.poster = params[:poster]
+    # poster.save
+    
+    # report = Report.new
+    # report.report = params[:report]
+    # report.save
+    
+    redirect_to "/"
   end
   #집회 등록 view 
   def new
   end
-  def destroy
-  end
   #집회 수정 view
   def edit
+    @assembly = Assembly.find(params[:assembly_id])
   end
   #집회 수정 action
   def update
+    assembly = Assembly.find(params[:assembly_id]) 
+    assembly.title = params[:title]
+    assembly.content = params[:content]
+    assembly.thumnail = params[:thumnail]
+    assembly.calendar = params[:calendar]
+    assembly.purpose = params[:purpose]
+    assembly.donateDeadline = params[:donateDeadline]
+    assembly.donateGoal = params[:donateGoal]
+    assembly.category = params[:category]
+    assembly.check = params[:check]
+    assembly.roadAddress = params[:roadAddress]
+    assembly.specificAdd = params[:specificAdd]
+    assembly.sido = params[:sido]
+    assembly.save
+    
+    # poster = Poster.find(params[:assembly_id]) 
+    # poster.poster = params[:poster]
+    # poster.save
+    
+    # report = Report.find(params[:assembly_id])
+    # report.report = params[:report]
+    # report.save
+    
+    redirect_to "/"
   end 
-
-  def donate
+  def destroy
+    assembly = Assembly.find(params[:assembly_id]) 
+    assembly.destroy
+    
+    # poster = Poster.find(params[:assembly_id]) 
+    # poster.destroy
+    
+    # report = Report.fine(params[:assembly_id])
+    # report.destroy
   end
-
+  def createHost
+    host = Host.new
+    host.assembly_id = params[:assembly_id]
+    host.name = params[:name]
+    host.email = params[:email]
+    host.intro = params[:intro]
+    host.save
+  end
+  def newHost
+    @assembly_id = params[:assembly_id]
+  end
+  def editHost
+    @host = Host.find(params[:host_id])
+  end
+  def updateHost
+    host = Host.find(params[:host_id])
+    host.name = params[:name]
+    host.email = params[:email]
+    host.intro = params[:intro]
+    host.save
+  end
+  def destroyHost
+    host = Host.find(params[:host_id])
+    host.destroy
+  end
+  #후원하기 뷰
+  def donate_view
+    @assembly = Assembly.find(params[:assembly_id])
+  end
+  #후원하기 액션
+  def donate
+    donate = Donation.new
+    donate.donateUser = params[:donateUser]
+    donate.user_id = current_user.id
+    donate.assembly_id = params[:assembly_id]
+    donate.save 
+    
+    redirect_to action: 'mypage', user_id: current_user.id
+  end
+  #유저 매칭 뷰
   def match
     ability = $ability
     category = $category
@@ -56,43 +178,90 @@ class ValueplusController < ApplicationController
     end
     redirect_to '/valueplus/match'
   end
-  
-  # def myDonate
-  # end
-  # def myScrap
-  # end
-  # def myAssembly
-  # end
-  
   #profile 수정 뷰
   def profileEdit
-    @profile = User.find(params[:user_id])
+    @user= User.find(params[:user_id])
     @category = Category.find_by_user_id(params[:user_id])
     @ability = Ability.find_by_user_id(params[:user_id])
   end
   #profile 수정 액션
   def profileUpdate
-    profile = User.find(params[:user_id])
-    #@profile.profileImg =
-    profile.matching = params[:matching]
-    profile.introduce = params[:introduce]
-    profile.save
-    redirect_to '/valueplus/mypage/:user_id'
+    user = User.find(params[:user_id])
+    user.profile = params[:profile]
+    user.matching = params[:matching]
+    user.introduce = params[:introduce]
+    user.save
+    
+    category = Category.find_by_user_id(params[:user_id])
+    category.user_id = params[:user_id]
+    category.politic = params[:politic]
+    category.society = params[:society]
+    category.education = params[:education]
+    category.labor = params[:labor]
+    category.foodMedi = params[:foodMedi]
+    category.press = params[:press]
+    category.environment = params[:environment]
+    category.right = params[:right]
+    category.female = params[:female]
+    category.save
+    
+    ability = Ability.find_by_user_id(params[:user_id])
+    ability.user_id = params[:user_id]
+    ability.plan = params[:plan]
+    ability.mc = params[:mc]
+    ability.design = params[:design]
+    ability.video = params[:video]
+    ability.sns = params[:sns]
+    ability.save
+    
+    redirect_to action: 'mypage', user_id: params[:user_id]
   end
+  #내 후원, 스크랩, 내 집회,내 경력/이력 및 프로필을 볼 수 있는 마이페이지
   def mypage
+    @user = User.find(params[:user_id])
+    @category = Category.find_by_user_id(params[:user_id])
+    @ability = Ability.find_by_user_id(params[:user_id])
     @myAssembly = Assembly.where(:user_id => params[:user_id])
     @myScrap = Scrap.where(:user_id => params[:user_id])
     @myDonate = Donation.where(:user_id => params[:user_id])
+    #myCareer CRUD
+    @myCareer = Career.where(:user_id => params[:user_id])
   end
-  
+  #커리어 등록 액션
+  def myCareer
+    myCareer = Career.new
+    myCareer.content = params[:content]
+    myCareer.user_id = current_user.id
+    myCareer.save
+    redirect_to :back
+  end
+  #커리어 수정 뷰
+  def myCareerEdit
+    @myCareer = Career.find(params[:career_id])
+  end
+  #커리어 수정 액션
+  def myCareerUpdate
+    myCareer = Career.find(params[:career_id])
+    myCareer.content = params[:content]
+    myCareer.save
+    
+    redirect_to action: 'mypage', user_id: current_user.id
+  end
+  #커리어 삭제 액션
+  def myCareerDestroy
+    myCareer = Career.find(params[:career_id])
+    myCareer.destroy
+    
+    redirect_to :back
+  end
+  #검토하기 뷰
   def check
-      @assCheck = Assembly.where(:check => 2)
-      #접근 권한 설정하기
+      @check = Assembly.where(:check => 2)
   end 
-
+  #전체 리스팅 페이지
   def list
     # @assembly => 집회
-    @assembly = Assembly.includes(:address).where(["assemblies.calendar >= ?", Date.today])
+    @assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1)
     case $field
       when "politic"
         @assembly = @assembly.where(:category => 0)
@@ -116,39 +285,39 @@ class ValueplusController < ApplicationController
     end
     case $sido
       when "seoul"
-        @assembly = @assembly.where(:addresses => {:sido => "서울"})
+        @assembly = @assembly.where(:sido => "서울")
       when "gyeonggi"
-        @assembly = @assembly.where(:addresses => {:sido => "경기"})
+        @assembly = @assembly.where(:sido => "경기")
       when "incheon"
-        @assembly = @assembly.where(:addresses => {:sido => "인천"})
+        @assembly = @assembly.where(:sido => "인천")
       when "busan"
-        @assembly = @assembly.where(:addresses => {:sido => "부산"})
+        @assembly = @assembly.where(:sido => "부산")
       when "gangwon"
-        @assembly = @assembly.where(:addresses => {:sido => "강원"})
+        @assembly = @assembly.where(:sido => "강원")
       when "chungbuk"
-        @assembly = @assembly.where(:addresses => {:sido => "충북"})
+        @assembly = @assembly.where(:sido => "충북")
       when "sejong"
-        @assembly = @assembly.where(:addresses => {:sido => "세종"})
+        @assembly = @assembly.where(:sido => "세종")
       when "chungnam"
-        @assembly = @assembly.where(:addresses => {:sido => "충남"})
+        @assembly = @assembly.where(:sido => "충남")
       when "daejun"
-        @assembly = @assembly.where(:addresses => {:sido => "대전"})
+        @assembly = @assembly.where(:sido => "대전")
       when "gyeongbuk"
-        @assembly = @assembly.where(:addresses => {:sido => "경북"})
+        @assembly = @assembly.where(:sido => "경북")
       when "daegu"
-        @assembly = @assembly.where(:addresses => {:sido => "대구"})
+        @assembly = @assembly.where(:sido => "대구")
       when "ulsan"
-        @assembly = @assembly.where(:addresses => {:sido => "울산"})
+        @assembly = @assembly.where(:sido => "울산")
       when "gyeongnam"
-        @assembly = @assembly.where(:addresses => {:sido => "경남"})
+        @assembly = @assembly.where(:sido => "경남")
       when "junbuk"
-        @assembly = @assembly.where(:addresses => {:sido => "전북"})
+        @assembly = @assembly.where(:sido => "전북")
       when "junnam"
-        @assembly = @assembly.where(:addresses => {:sido => "전남"})
+        @assembly = @assembly.where(:sido => "전남")
       when "gwuangju"
-        @assembly = @assembly.where(:addresses => {:sido => "광주"})
+        @assembly = @assembly.where(:sido => "광주")
       when "jeju"
-        @assembly = @assembly.where(:addresses => {:sido => "제주"})
+        @assembly = @assembly.where(:sido => "제주")
       else
     end
     if $sort == "like"
@@ -156,6 +325,10 @@ class ValueplusController < ApplicationController
     else
       @assembly = @assembly.order(id: :desc)
     end
+    
+    @poster = Poster.all
+    @report = Report.all
+    
   end
   #집회 추천순, 최신순 정렬
   def sort
@@ -174,6 +347,7 @@ class ValueplusController < ApplicationController
   end
   def aftersigningUp_view
   end
+  #회원가입 직후 능력과 관심분야를 체크하는 액션
   def afterSigningUp
     category = Category.new
     category.user_id = params[:user_id]

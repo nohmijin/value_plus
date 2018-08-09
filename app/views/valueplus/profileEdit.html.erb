@@ -3,57 +3,98 @@
     <head>
     </head>
     <body>
-        <h3><%= @profile.email %></h3>
+        <h2><%= @user.email %></h2>
         <form action= '/valueplus/profileUpdate' method='post'>
             <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type = "hidden" name="user_id" value= <%= @profile.id %>>
-            <p>매칭여부</p>
+            <input type = "hidden" name="user_id" value= <%= @user.id %>>
+            <p><매칭여부></p>
             <p><input type = "radio" name = "matching" value = "true" 
-            <% if @profile.matching == true %>
+            <% if @user.matching == true %>
                 checked="checked"
             <% end %>
             >yes
             <input type = "radio" name = "matching" value = "false"
-            <% if @profile.matching == false %>
+            <% if @user.matching == false %>
                 checked="checked"
             <% end %>
             >no</p>
-            <p>소개글</p>
-            <p><textarea name = "introduce"><%= @profile.introduce %></textarea></p>
-            <button type ='submit'>submit</button>
-            <p>분야</p>
-            politic <%=@category.politic%>
-            <p>능력</p>
-            sns <%= @ability.sns %>
-        </form>
-    </body>
-</html><!DOCTYPE html>
-<html>
-    <head>
-    </head>
-    <body>
-        <h3><%= @profile.email %></h3>
-        <form action= '/valueplus/profileUpdate' method='post'>
-            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-            <input type = "hidden" name="user_id" value= <%= @profile.id %>>
-            <p>매칭여부</p>
-            <p><input type = "radio" name = "matching" value = "true" 
-            <% if @profile.matching == true %>
+            <p><소개글></p>
+            <p><textarea name = "introduce"><%= @user.introduce %></textarea></p>
+            <hr>
+            <p><분야></p>
+            <input type = "checkbox" name = "politic" value = "true"
+            <% if @category.politic == true %>
                 checked="checked"
             <% end %>
-            >yes
-            <input type = "radio" name = "matching" value = "false"
-            <% if @profile.matching == false %>
+            >정치
+            <input type = "checkbox" name = "society" value = "true"
+            <% if @category.society == true %>
                 checked="checked"
             <% end %>
-            >no</p>
-            <p>소개글</p>
-            <p><textarea name = "introduce"><%= @profile.introduce %></textarea></p>
+            >사회
+            <input type = "checkbox" name = "education" value = "true"
+            <% if @category.education == true %>
+                checked="checked"
+            <% end %>
+            >교육
+            <input type = "checkbox" name = "labor" value = "true"
+            <% if @category.labor == true %>
+                checked="checked"
+            <% end %>
+            >노동
+            <input type = "checkbox" name = "fooMedi" value = "true"
+            <% if @category.foodMedi == true %>
+                checked="checked"
+            <% end %>
+            >식품/의료
+            <input type = "checkbox" name = "press" value = "true"
+            <% if @category.press == true %>
+                checked="checked"
+            <% end %>
+            >언론
+            <input type = "checkbox" name = "environment" value = "true"
+            <% if @category.environment == true %>
+                checked="checked"
+            <% end %>
+            >환경
+            <input type = "checkbox" name = "right" value = "true"
+            <% if @category.right == true %>
+                checked="checked"
+            <% end %>
+            >인권
+            <input type = "checkbox" name = "female" value = "true"
+            <% if @category.female == true %>
+                checked="checked"
+            <% end %>
+            >여성
+            <p><능력></p>
+            <input type = "checkbox" name = "plan" value = "true"
+            <% if @ability.plan == true %>
+                checked="checked"
+            <% end %>
+            >기획
+            <input type = "checkbox" name = "mc" value = "true"
+            <% if @ability.mc == true %>
+                checked="checked"
+            <% end %>
+            >진행
+            <input type = "checkbox" name = "design" value = "true"
+            <% if @ability.design == true %>
+                checked="checked"
+            <% end %>
+            >디자인
+            <input type = "checkbox" name = "video" value = "true"
+            <% if @ability.video == true %>
+                checked="checked"
+            <% end %>
+            >영상
+            <input type = "checkbox" name = "sns" value = "true"
+            <% if @ability.sns == true %>
+                checked="checked"
+            <% end %>
+            >sns
+            <hr>
             <button type ='submit'>submit</button>
-            <p>분야</p>
-            politic <%=@category.politic%>
-            <p>능력</p>
-            sns <%= @ability.sns %>
         </form>
     </body>
 </html>

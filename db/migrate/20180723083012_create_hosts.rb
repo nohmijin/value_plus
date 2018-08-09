@@ -5,7 +5,7 @@ class CreateHosts < ActiveRecord::Migration
       t.string :profileImg
       t.string :email
       t.text :intro
-      t.integer :assembly_id
+      t.references :assembly, index: true, foreign_key: true
 
       t.timestamps null: false
     end

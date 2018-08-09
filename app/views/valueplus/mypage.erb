@@ -4,18 +4,73 @@
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
     <body>
+        <h2><%= @user.email %></h2>
+        <p>매칭여부 : <strong><%= @user.matching %></strong></p>
+        <p><소개글></p> 
+        <p><%= @user.introduce %></p>
+        <hr>
+        <p><관심분야></p>
+        <% if @category.politic == true %>
+        정치
+        <% end %>
+        <% if @category.society == true %>
+        사회
+        <% end %>
+        <% if @category.education == true %>
+        교육
+        <% end %>
+        <% if @category.labor == true %>
+        노동
+        <% end %>
+        <% if @category.foodMedi == true %>
+        식품/의료
+        <% end %>
+        <% if @category.press == true %>
+        언론
+        <% end %>
+        <% if @category.environment == true %>
+        환경
+        <% end %>
+        <% if @category.right == true %>
+        인권
+        <% end %>
+        <% if @category.female == true %>
+        여성
+        <% end %>
+        <p><능력></p>
+        <% if @ability.plan == true %>
+        기획
+        <% end %>
+        <% if @ability.mc == true %>
+        진행
+        <% end %>
+        <% if @ability.design == true %>
+        디자인
+        <% end %>
+        <% if @ability.video == true %>
+        영상
+        <% end %>
+        <% if @ability.sns == true %>
+        sns
+        <% end %>
+        <% if @user.id == current_user.id %>
+        <p><a href="/valueplus/profileEdit/<%= @user.id %>">수정하기</a></p>
+        <% end %>
+        <hr>
         <div>myCareer</div>
-        <p style="display: none"><%= render "myCareer" %></p>
-        <div>myAssembly</div>
-        <p style="display: none"><%= render "myAssembly" %></p>
-        <div>myScrap</div>
-        <p style="display: none"><%= render "myScrap" %></p>
-        <div>myDonate</div>
-        <p style="display: none"><%= render "myDonate" %></p>
+        <p><%= render "myCareer" %></p>
+        <% if @user.id == current_user.id %>
+            <div>myAssembly</div>
+            <p style="display: none"><%= render "myAssembly" %></p>
+            <div>myScrap</div>
+            <p style="display: none"><%= render "myScrap" %></p>
+            <div>myDonate</div>
+            <p style="display: none"><%= render "myDonate" %></p>
+        <% end %>
         
         <script>
         $("div").click(function(){
-          $(this).next().show()
+          $(this).next().toggle()
         });
         </script>
     </body>

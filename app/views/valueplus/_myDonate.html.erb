@@ -3,6 +3,10 @@
     <head>
     </head>
     <body>
-        myDonate내용
+        <% @donate.each do |a|%>
+        
+        <%=a.title%>
+        
+        <%end%>
     </body>
 </html>

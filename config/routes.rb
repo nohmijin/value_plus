@@ -14,30 +14,44 @@ Rails.application.routes.draw do
 
   get 'valueplus/new'
   
+  get 'valueplus/show'
+  
   get 'valueplus/show/:assembly_id' => 'valueplus#show'
   
-  get 'valueplus/destroy'
+  get 'valueplus/destroy/:assembly_id' =>'valueplus#destroy'
 
-  get 'valueplus/edit'
+  get 'valueplus/edit/:assembly_id' => 'valueplus#edit'
   
   post 'valueplus/update'
+  
+  post 'valueplus/createHost'
 
-  get 'valueplus/donate'
+  get 'valueplus/newHost/:assembly_id' => 'valueplus#newHost'
+  
+  get 'valueplus/destroyHost/:host_id' =>'valueplus#destroyHost'
 
+  get 'valueplus/edit/:host_id' => 'valueplus#editHost'
+  
+  post 'valueplus/updateHost'
+
+  get 'valueplus/donate_view/:assembly_id' => 'valueplus#donate_view'
+
+  post 'valueplus/donate'
+  
   get 'valueplus/match'
   
   post 'valueplus/matchFilter'
 
   get 'valueplus/check'
 
-  get 'valueplus/myCareer/:user_id' => 'valueplus#myCareer'
-
-  get 'valueplus/myDonate/:user_id' => 'valueplus#myDonate'
-
-  get 'valueplus/myScrap/:user_id' => 'valueplus#myScrap'
-
-  get 'valueplus/myAssembly/:user_id' => 'valueplus#myAssembly'
-
+  post 'valueplus/myCareer'
+  
+  get 'valueplus/myCareerEdit/:career_id' => 'valueplus#myCareerEdit'
+ 
+  post 'valueplus/myCareerUpdate'
+  
+  get 'valueplus/myCareerDestroy/:career_id' =>'valueplus#myCareerDestroy'
+  
   get 'valueplus/profileEdit/:user_id' =>'valueplus#profileEdit'
   
   post 'valueplus/profileUpdate'
@@ -49,6 +63,8 @@ Rails.application.routes.draw do
   get '/valueplus/afterSigningUp_view'
   
   post '/valueplus/afterSigningUp'
+  
+  post 'assembly/:assembly_id/like' => 'likes#like_toggle'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

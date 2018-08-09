@@ -12,9 +12,11 @@ class CreateAssemblies < ActiveRecord::Migration
       t.date :donateDeadline
       t.integer :category
       t.integer :like
-      t.integer :address_id
       t.integer :check
-      t.integer :user_id
+      t.string :roadAddress
+      t.string :specificAdd
+      t.string :sido
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end

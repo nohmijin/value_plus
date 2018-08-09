@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180723130515) do
+ActiveRecord::Schema.define(version: 20180809030924) do
 
   create_table "abilities", force: :cascade do |t|
     t.boolean  "plan"
@@ -22,16 +22,6 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "addresses", force: :cascade do |t|
-    t.string   "roadAddress"
-    t.string   "sido"
-    t.integer  "x"
-    t.integer  "y"
-    t.integer  "assembly_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "assemblies", force: :cascade do |t|
@@ -46,18 +36,25 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.date     "donateDeadline"
     t.integer  "category"
     t.integer  "like"
-    t.integer  "address_id"
     t.integer  "check"
+    t.string   "roadAddress"
+    t.string   "specificAdd"
+    t.string   "sido"
     t.integer  "user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
   end
 
+  add_index "assemblies", ["user_id"], name: "index_assemblies_on_user_id"
+
   create_table "careers", force: :cascade do |t|
     t.string   "content"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "careers", ["user_id"], name: "index_careers_on_user_id"
 
   create_table "categories", force: :cascade do |t|
     t.boolean  "politic"
@@ -90,15 +87,39 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "hosts", ["assembly_id"], name: "index_hosts_on_assembly_id"
+
   create_table "likes", force: :cascade do |t|
+    t.integer  "assembly_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "likes", ["assembly_id"], name: "index_likes_on_assembly_id"
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
+
+  create_table "posters", force: :cascade do |t|
+    t.string   "poster"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string   "report"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "scraps", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "assembly_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  add_index "scraps", ["assembly_id"], name: "index_scraps_on_assembly_id"
+  add_index "scraps", ["user_id"], name: "index_scraps_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -113,10 +134,10 @@ ActiveRecord::Schema.define(version: 20180723130515) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "profileImg"
     t.boolean  "matching"
     t.text     "introduce"
     t.boolean  "admin"
+    t.string   "profile"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

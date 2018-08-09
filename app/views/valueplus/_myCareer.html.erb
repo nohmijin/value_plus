@@ -3,6 +3,21 @@
     <head>
     </head>
     <body>
-        myCareer내용
+        <h2>경력/이력</h2>
+        <% if @user.id == current_user.id %>
+            <h5>경력/이력 등록하기</h5>
+            <form action= '/valueplus/myCareer' method='post'>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <p><input type="text" name="content"></p>
+                <button type ='submit'>submit</button>
+            </form>
+        <% end %>
+        <% @myCareer.each do |c| %>
+            <p><%= c.content %></p>
+            <% if @user.id == current_user.id %>
+                <p><a href="/valueplus/myCareerEdit/<%= c.id %>">수정<a>
+                <a href="/valueplus/myCareerDestroy/<%= c.id %>">삭제<a></p>
+            <% end %>    
+        <% end %>
     </body>
 </html>
