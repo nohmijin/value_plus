@@ -4,7 +4,7 @@ class CreateScraps < ActiveRecord::Migration
       
       t.references :assembly, index: true, foreign_key: true
       t.references :user, index: true, foreign_key: true
-
+      
       t.timestamps null: false
     end
   end

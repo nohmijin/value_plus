@@ -43,22 +43,48 @@
             <button type ='submit'>submit</button>
         </form>
         <% @assembly.each do |a|%>
-            <% remain = a.calendar - Date.today %>
-            <p><a href="/valueplus/show/<%=a.id%>"><%= a.title%></a>
-            <% if remain == 0 %>
-                (오늘)</p>
-            <% else %>
-                (<%= remain.to_i%>일 남음)</p>
-            <% end %>
+            <p>
+                <% remain = a.calendar - Date.today %>
+                <h3><a href="/valueplus/show/<%=a.id%>"><%= a.title%></a>
+                    <% if remain == 0 %>
+                        (오늘)</h3>
+                    <% else %>
+                        (<%= remain.to_i%>일 남음)</h3>
+                    <% end %>
+            </p>
             <p>썸네일 :<%=a.thumnail.url%></p>
-            <p>분야 : <%=a.category%></p>
+            <p>분야 : <%= a.category%></p>
             <p>내용 : <%=a.content%></p>
             <p>목적 : <%=a.purpose%></p>
             <p>날짜 :<%=a.calendar%></p>
             <p>후원 마감 : <%=a.donateDeadline%></p>
             <p>후원 목표 :<%=a.donateGoal%></p>
+            <p><a href ="/valueplus/donate_view/<%= a.id %>">후원하러 가기</a></p>
+            <strong>Like:</strong>
+            <p>
+                <%=a.likes.size%>명이 좋아합니다!
+                <% if current_user.is_like? (a) %>
+                    <form action='/assembly/<%= a.id%>/like' method='post'>
+                        <button> 좋아요 취소 </button>  
+                    </form>
+                <% else %>
+                    <form action='/assembly/<%= a.id%>/like' method='post'>
+                        <button> 좋아요</button>  
+                    </form>
+                <% end %>
+            </p>
+            <strong>Scrap:</strong>
+            <p>
+                <% if current_user.is_scrap? (a) %>
+                    <form action='/assembly/<%= a.id%>/scrap' method='post'>
+                    <button> 스크랩 취소 </button>  
+                    </form>
+                <% else %>
+                    <form action='/assembly/<%= a.id%>/scrap' method='post'>
+                        <button> 스크랩 </button>  
+                    </form>
+                <% end %>
+            </p>
         <% end %> 
-        
-
     </body>
 </html>

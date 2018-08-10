@@ -3,6 +3,13 @@
     <head>
     </head>
     <body>
-        myScrap내용
+        <% if @myScrap %>
+            <h3><내 스크랩></h3>
+            <% @myScrap.each do |s| %>
+                <p>"<a href ="/valueplus/show/<%= s.id %>"><%=s.title%></a>"</p>
+            <% end %>
+        <% else %>
+            <p>스크랩 내역이 없습니다</p>
+        <% end %>
     </body>
 </html>

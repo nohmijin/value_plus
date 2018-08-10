@@ -14,8 +14,12 @@ class User < ActiveRecord::Base
   has_many :scraps
   has_many :scraped_assemblies, through: :scraps, source: :assembly 
   
-  def is_like?(assembly)
+  def is_like? (assembly)
     Like.find_by(user_id: self.id, assembly_id: assembly.id).present?
+  end
+  
+  def is_scrap? (assembly)
+    Scrap.find_by(user_id: self.id, assembly_id: assembly.id).present?
   end
   
   def self.searchAbility(*ability)

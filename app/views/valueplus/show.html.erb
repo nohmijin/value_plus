@@ -4,13 +4,46 @@
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 </head>
     <body>
-        <p>분야 : <%= @assemblyCategory%></p>
         <h2>제목 :<%= @assembly.title%></h2>
+        <p>분야 : <%= @assemblyCategory%></p>
         <p>목적 :<%= @assembly.purpose%></p>
         <p>내용 : <%= @assembly.content%></p>
         <p>날짜 :<%= @assembly.calendar%></p>
         <p>장소 :<%= @assembly.roadAddress %></p>
         <div id="map" style="width:350px;height:350px;"></div>
+        <p>
+            <p>주최자 이름 :<%= @assembly.host.name %></p>
+            <p>주최자 이메일 :<%= @assembly.host.email %></p>
+            <p>주최자 소개 :<%= @assembly.host.intro %></p>
+        </p>
+        <strong>Like:</strong>
+        <p>
+            <%=@assembly.likes.size%>명이 좋아합니다!
+            <% if current_user.is_like? (@assembly) %>
+                <form action='/assembly/<%= @assembly.id%>/like' method='post'>
+                    <button> 좋아요 취소 </button>  
+                </form>
+            <% else %>
+                <form action='/assembly/<%= @assembly.id%>/like' method='post'>
+                    <button> 좋아요</button>  
+                </form>
+            <% end %>
+        </p>
+        <strong>Scrap:</strong>
+        <p>
+            <% if current_user.is_scrap? (@assembly) %>
+                <form action='/assembly/<%= @assembly.id%>/scrap' method='post'>
+                <button> 스크랩 취소 </button>  
+                </form>
+            <% else %>
+                <form action='/assembly/<%= @assembly.id%>/scrap' method='post'>
+                    <button> 스크랩 </button>  
+                </form>
+            <% end %>
+        </p>
+        <p><a href ="/valueplus/donate_view/<%= @assembly.id %>">후원하러 가기</a></p>
+        <p><a href="/valueplus/edit/<%= @assembly.id %>">수정</a></p>
+        <p><a href="/valueplus/destroy/<%= @assembly.id %>">삭제</a></p>
     </body>
     <script>
         var fullAddress = "<%= @assembly.roadAddress %>";

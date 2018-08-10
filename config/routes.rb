@@ -23,16 +23,6 @@ Rails.application.routes.draw do
   get 'valueplus/edit/:assembly_id' => 'valueplus#edit'
   
   post 'valueplus/update'
-  
-  post 'valueplus/createHost'
-
-  get 'valueplus/newHost/:assembly_id' => 'valueplus#newHost'
-  
-  get 'valueplus/destroyHost/:host_id' =>'valueplus#destroyHost'
-
-  get 'valueplus/edit/:host_id' => 'valueplus#editHost'
-  
-  post 'valueplus/updateHost'
 
   get 'valueplus/donate_view/:assembly_id' => 'valueplus#donate_view'
 
@@ -65,6 +55,8 @@ Rails.application.routes.draw do
   post '/valueplus/afterSigningUp'
   
   post 'assembly/:assembly_id/like' => 'likes#like_toggle'
+  
+  post 'assembly/:assembly_id/scrap' => 'scraps#scrap_toggle'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

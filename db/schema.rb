@@ -24,14 +24,16 @@ ActiveRecord::Schema.define(version: 20180809030924) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "abilities", ["user_id"], name: "index_abilities_on_user_id"
+
   create_table "assemblies", force: :cascade do |t|
     t.string   "title"
-    t.string   "thumnailImg"
-    t.string   "posterImg"
+    t.string   "thumnail"
+    t.string   "poster"
     t.text     "content"
     t.text     "purpose"
     t.date     "calendar"
-    t.string   "reportImg"
+    t.string   "report"
     t.integer  "donateGoal"
     t.date     "donateDeadline"
     t.integer  "category"
@@ -71,11 +73,18 @@ ActiveRecord::Schema.define(version: 20180809030924) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "categories", ["user_id"], name: "index_categories_on_user_id"
+
   create_table "donations", force: :cascade do |t|
     t.integer  "donateUser"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "assembly_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
+
+  add_index "donations", ["assembly_id"], name: "index_donations_on_assembly_id"
+  add_index "donations", ["user_id"], name: "index_donations_on_user_id"
 
   create_table "hosts", force: :cascade do |t|
     t.string   "name"

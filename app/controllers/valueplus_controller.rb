@@ -12,7 +12,6 @@ class ValueplusController < ApplicationController
   end
   #집회 상세보기
   def show
-    @find_like = Assembly.find(params[:assembly_id]) 
     @assembly = Assembly.find(params[:assembly_id]) 
     #집회분야가 한글로 표시된 변수
     @assemblyCategory = caseCategory(@assembly.category)
@@ -48,7 +47,6 @@ class ValueplusController < ApplicationController
     assembly.user_id = params[:user_id]
     assembly.title = params[:title]
     assembly.content = params[:content]
-    assembly.thumnail = params[:thumnail]
     assembly.calendar = params[:calendar]
     assembly.purpose = params[:purpose]
     assembly.donateDeadline = params[:donateDeadline]
@@ -60,29 +58,27 @@ class ValueplusController < ApplicationController
     assembly.sido = params[:sido]
     assembly.save
     
-    # poster = Poster.new
-    # poster.poster = params[:poster]
-    # poster.save
+    host = Host.new
+    host.assembly_id = assembly.id
+    host.name = params[:name]
+    host.email = params[:email]
+    host.intro = params[:intro]
+    host.save
     
-    # report = Report.new
-    # report.report = params[:report]
-    # report.save
-    
-    redirect_to "/"
+    redirect_to "/valueplus/show/#{assembly.id}"
   end
   #집회 등록 view 
   def new
   end
   #집회 수정 view
   def edit
-    @assembly = Assembly.find(params[:assembly_id])
+    @assembly = Assembly.includes(:host).find(params[:assembly_id])
   end
   #집회 수정 action
   def update
     assembly = Assembly.find(params[:assembly_id]) 
     assembly.title = params[:title]
     assembly.content = params[:content]
-    assembly.thumnail = params[:thumnail]
     assembly.calendar = params[:calendar]
     assembly.purpose = params[:purpose]
     assembly.donateDeadline = params[:donateDeadline]
@@ -93,51 +89,23 @@ class ValueplusController < ApplicationController
     assembly.specificAdd = params[:specificAdd]
     assembly.sido = params[:sido]
     assembly.save
+
+    host = Host.find_by_assembly_id(params[:assembly_id])
+    host.name = params[:name]
+    host.email = params[:email]
+    host.intro = params[:intro]
+    host.save
     
-    # poster = Poster.find(params[:assembly_id]) 
-    # poster.poster = params[:poster]
-    # poster.save
-    
-    # report = Report.find(params[:assembly_id])
-    # report.report = params[:report]
-    # report.save
-    
-    redirect_to "/"
+    redirect_to "/valueplus/show/#{assembly.id}"
   end 
   def destroy
     assembly = Assembly.find(params[:assembly_id]) 
     assembly.destroy
     
-    # poster = Poster.find(params[:assembly_id]) 
-    # poster.destroy
+    host = Host.find_by_assembly_id(params[:assembly_id])
+    host.destroy 
     
-    # report = Report.fine(params[:assembly_id])
-    # report.destroy
-  end
-  def createHost
-    host = Host.new
-    host.assembly_id = params[:assembly_id]
-    host.name = params[:name]
-    host.email = params[:email]
-    host.intro = params[:intro]
-    host.save
-  end
-  def newHost
-    @assembly_id = params[:assembly_id]
-  end
-  def editHost
-    @host = Host.find(params[:host_id])
-  end
-  def updateHost
-    host = Host.find(params[:host_id])
-    host.name = params[:name]
-    host.email = params[:email]
-    host.intro = params[:intro]
-    host.save
-  end
-  def destroyHost
-    host = Host.find(params[:host_id])
-    host.destroy
+    redirect_to '/valueplus/list'
   end
   #후원하기 뷰
   def donate_view
@@ -151,7 +119,7 @@ class ValueplusController < ApplicationController
     donate.assembly_id = params[:assembly_id]
     donate.save 
     
-    redirect_to action: 'mypage', user_id: current_user.id
+    redirect_to "/valueplus/mypage/#{current_user.id}"
   end
   #유저 매칭 뷰
   def match
@@ -223,9 +191,8 @@ class ValueplusController < ApplicationController
     @category = Category.find_by_user_id(params[:user_id])
     @ability = Ability.find_by_user_id(params[:user_id])
     @myAssembly = Assembly.where(:user_id => params[:user_id])
-    @myScrap = Scrap.where(:user_id => params[:user_id])
+    @myScrap = Assembly.includes(:scraps).where(:scraps => {:user_id => params[:user_id]})
     @myDonate = Donation.where(:user_id => params[:user_id])
-    #myCareer CRUD
     @myCareer = Career.where(:user_id => params[:user_id])
   end
   #커리어 등록 액션
@@ -326,10 +293,6 @@ class ValueplusController < ApplicationController
     else
       @assembly = @assembly.order(id: :desc)
     end
-    
-    @poster = Poster.all
-    @report = Report.all
-    
   end
   #집회 추천순, 최신순 정렬
   def sort

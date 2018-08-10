@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     </head>
     <body>
         <form action = "/valueplus/update" method = "post" entype = "multipart/form-data">
@@ -21,7 +22,7 @@
             <input type = "radio" name ="category" value= "right">인권
             <input type = "radio" name ="category" value= "female">여성
             <p>목적: <input type = "text" name = "purpose" value = <%= @assembly.purpose %>></p>
-            <p>일시: <input type = "date" name = "calender" value = <%= @assembly.calendar %>></p>
+            <p>일시: <input type = "date" name = "calendar" value = <%= @assembly.calendar %>></p>
             <div>
                 <p>장소</p>
                 <input type="text" id="sample6_postcode" placeholder="우편번호">
@@ -33,7 +34,12 @@
             <p>신고서 이미지 파일: <input type = "file" name = "report"></p>
             <p>후원 목표 금액: <input type = "string" name = "donateGoal" value = <%= @assembly.donateGoal %>></p>
             <p>후원 마감일: <input = type = "date" name = "donateDeadline" value = <%= @assembly.donateDeadline %>></p>
-            <button type = "submit">제출하기</button>
+            <p>주최자
+                <p>주최자 이름 :<input type="string" name="name" value = <%= @assembly.host.name %>></p>
+                <p>주최자 이메일 :<input type="email" name="email" value = <%= @assembly.host.email %>></p>
+                <p>주최자 소개 :<input type="text" name="intro" value = <%= @assembly.host.intro %>></p>             
+            </p>   
+            <button type = "submit">수정하기</button>
         </form>
     </body>
     <script>

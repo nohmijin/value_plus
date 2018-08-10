@@ -7,19 +7,19 @@
         <p><a href="/valueplus/new">새글 쓰기</a></p>
         **카라우셀
         <% @carousel.each do |p| %>
-        <p><a href="/valueplus/show/<%= @p.id %>"><%= p.title %></a></p>
+        <p><a href="/valueplus/show/<%= p.id %>"><%= p.title %></a></p>
         <% end %>
         **정치
         <% @politic.each do |p| %>
-        <p><a href="/valueplus/show/<%= @p.id %>"><%= p.title %></a></p>
+        <p><a href="/valueplus/show/<%= p.id %>"><%= p.title %></a></p>
         <% end %>
         **사회
         <% @society.each do |p| %>
-        <p><a href="/valueplus/show/<%= @p.id %>"><%= p.title %></a></p>
+        <p><a href="/valueplus/show/<%= p.id %>"><%= p.title %></a></p>
         <% end %>
         **교육
         <% @education.each do |p| %>
-        <p><a href="/valueplus/show/<%= @p.id %>"><%= p.title %></a></p>
+        <p><a href="/valueplus/show/<%= p.id %>"><%= p.title %></a></p>
         <% end %>
     </body>
 </html>

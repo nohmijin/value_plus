@@ -6,7 +6,7 @@ class CreateAbilities < ActiveRecord::Migration
       t.boolean :video
       t.boolean :design
       t.boolean :sns
-      t.integer :user_id
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
