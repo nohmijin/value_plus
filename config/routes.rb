@@ -57,6 +57,10 @@ Rails.application.routes.draw do
   post 'assembly/:assembly_id/like' => 'likes#like_toggle'
   
   post 'assembly/:assembly_id/scrap' => 'scraps#scrap_toggle'
+  
+  get '/valueplus/check_yes/:assembly_id' => 'valueplus#check_yes'
+  
+  get '/valueplus/check_no/:assembly_id' => 'valueplus#check_no'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

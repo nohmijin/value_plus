@@ -1,5 +1,5 @@
 class ValueplusController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :new, :destroy, :edit, :update, :donate, :profileEdit, :profileUpdate, :mypage, :check, :afterSigningUp, :aftersigningUp_view]
+  before_action :authenticate_user!, only: [:create, :new, :destroy, :edit, :update, :show, :mypage, :donate, :profileEdit, :profileUpdate, :mypage, :check, :afterSigningUp, :aftersigningUp_view]
   def index
     #마감된 집회 제외 추천순으로 저장
     assembly = Assembly.where(["assemblies.calendar >= ?", Date.today]).where(:check => 1).order(like: :desc)
@@ -225,8 +225,26 @@ class ValueplusController < ApplicationController
   end
   #검토하기 뷰
   def check
+    unless current_user.admin == true
+      redirect_to '/'
+    end
       @check = Assembly.where(:check => 2)
   end 
+  #검토 승인, 거부하는 액션
+  def check_yes
+    assembly = Assembly.find(params[:assembly_id])
+    assembly.check = 1
+    assembly.save
+    
+    redirect_to '/valueplus/check'
+  end
+  def check_no
+    assembly = Assembly.find(params[:assembly_id])
+    assembly.check = 0
+    assembly.save
+    
+    redirect_to '/valueplus/check'
+  end
   #전체 리스팅 페이지
   def list
     # @assembly => 집회

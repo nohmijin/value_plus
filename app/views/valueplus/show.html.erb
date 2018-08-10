@@ -47,6 +47,11 @@
         </p>
         <p><a href="/valueplus/edit/<%= @assembly.id %>">수정</a></p>
         <p><a href="/valueplus/destroy/<%= @assembly.id %>">삭제</a></p>
+        <% if current_user.admin== true %>
+        <승인 여부 결정하기>
+            <p><a href="/valueplus/check_yes/<%= @assembly.id %>">검토승인</p>
+            <p><a href="/valueplus/check_no/<%= @assembly.id %>">검토거부</p>
+        <% end %>
     </body>
     <script>
         var fullAddress = "<%= @assembly.roadAddress %>";
