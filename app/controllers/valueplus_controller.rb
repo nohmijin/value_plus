@@ -13,6 +13,7 @@ class ValueplusController < ApplicationController
   #집회 상세보기
   def show
     @assembly = Assembly.find(params[:assembly_id]) 
+    @donateMoney = Donation.where(:assembly_id => params[:assembly_id]).sum(:donateUser)
     #집회분야가 한글로 표시된 변수
     @assemblyCategory = caseCategory(@assembly.category)
     #집회 주소

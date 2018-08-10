@@ -11,6 +11,10 @@
         <p>날짜 :<%= @assembly.calendar%></p>
         <p>장소 :<%= @assembly.roadAddress %></p>
         <div id="map" style="width:350px;height:350px;"></div>
+        <p>후원 마감 : <%= @assembly.donateDeadline %></p>
+            <p>후원 목표 :<%= @assembly.donateGoal %></p>
+            <p>현재까지 후원 금액 : <%= @donateMoney %></p>
+            <p><a href ="/valueplus/donate_view/<%= @assembly.id %>">후원하러 가기</a></p>
         <p>
             <p>주최자 이름 :<%= @assembly.host.name %></p>
             <p>주최자 이메일 :<%= @assembly.host.email %></p>
@@ -41,7 +45,6 @@
                 </form>
             <% end %>
         </p>
-        <p><a href ="/valueplus/donate_view/<%= @assembly.id %>">후원하러 가기</a></p>
         <p><a href="/valueplus/edit/<%= @assembly.id %>">수정</a></p>
         <p><a href="/valueplus/destroy/<%= @assembly.id %>">삭제</a></p>
     </body>

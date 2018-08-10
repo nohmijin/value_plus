@@ -59,6 +59,7 @@
             <p>날짜 :<%=a.calendar%></p>
             <p>후원 마감 : <%=a.donateDeadline%></p>
             <p>후원 목표 :<%=a.donateGoal%></p>
+            <p>현재까지 후원 금액 : <%= Donation.where(:assembly_id => a).sum(:donateUser) %></p>
             <p><a href ="/valueplus/donate_view/<%= a.id %>">후원하러 가기</a></p>
             <strong>Like:</strong>
             <p>
