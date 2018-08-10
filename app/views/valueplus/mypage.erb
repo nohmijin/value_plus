@@ -60,18 +60,23 @@
         <div>myCareer</div>
         <p><%= render "myCareer" %></p>
         <% if @user.id == current_user.id %>
-            <div>myAssembly</div>
-            <p style="display: none"><%= render "myAssembly" %></p>
-            <div>myScrap</div>
-            <p style="display: none"><%= render "myScrap" %></p>
-            <div>myDonate</div>
-            <p style="display: none"><%= render "myDonate" %></p>
+            <div class="myAssembly" style="cursor: pointer;">myAssembly</div>
+            <div class="assemblyRender" style="display:none;"><%= render "myAssembly" %><p></div>
+            <div class="myScrap" style="cursor: pointer;">myScrap</div>
+            <div class="scrapRender" style="display:none;"><%= render "myScrap" %></div>
+            <div class="myDonate" style="cursor: pointer;">myDonate</div>
+            <div class="donateRender" style="display:none;"><%= render "myDonate" %></div>
         <% end %>
-        
-        <script>
-        $("div").click(function(){
-          $(this).next().toggle()
-        });
-        </script>
     </body>
+    <script>
+        $(document).on("click",".myAssembly",function(){
+          $(".assemblyRender").toggle();
+        });
+        $(document).on("click",".myScrap",function(){
+          $(".scrapRender").toggle();
+        });
+        $(document).on("click",".myDonate",function(){
+          $(".donateRender").toggle();
+        });
+    </script>
 </html> 
