@@ -74,6 +74,7 @@ class ValueplusController < ApplicationController
   #집회 수정 view
   def edit
     @assembly = Assembly.includes(:host).find(params[:assembly_id])
+    @category = Category.find_by(params[:assembly_id])
   end
   #집회 수정 action
   def update
