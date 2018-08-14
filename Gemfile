@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
 
+
+
 gem 'carrierwave', '~> 1.0'
+# gem 'mini_magick', '~>4.3'
 
 gem 'devise'
+gem 'materialize-sass'
 
 gem 'rails_db'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

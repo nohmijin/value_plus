@@ -1,15 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Workspace</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>Workspace</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper 263238 blue-grey darken-4">
+        <a href="#" class="brand-logo center">같이가치</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li><a href="#">둘러보기</a></li>
+          <li><a href="#">등록하기</a></li>
+          <li><a href="#">피플</a></li>
+        </ul>
+        <div class="right hide-on-med-and-down">
+          <% if user_signed_in? %>
+            <%=current_user.email%>
+            <a href='#'>마이페이지</a>
+            <%=link_to '로그아웃', destroy_user_session_path, method: 'delete'%>
+          <% else %>
+            <%=link_to '회원가입', new_user_registration_path %>
+            <%=link_to '로그인', new_user_session_path %>
+          <% end %>  
+      </div>
+    </nav>
+  <%= yield %>
+  </body>
 </html>

@@ -9,4 +9,5 @@ class Assembly < ActiveRecord::Base
     has_many :scraped_users, through: :scraps, source: :user
     
     mount_uploader :thumnail, ThumnailUploader
+
 end
